@@ -13,6 +13,16 @@ def deps do
 end
 ```
 
+## Usage examples
+
+```elixir-lang
+  "Laundry" |> Wemo.Switch.by_name |> Wemo.Switch.status
+  => {:ok, 1}
+
+  "Living Room" |> Wemo.Switch.by_name |> Wemo.Switch.on
+  => {:ok, _}
+```
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/wemo](https://hexdocs.pm/wemo).
