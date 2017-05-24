@@ -16,11 +16,20 @@ end
 ## Usage examples
 
 ```elixir-lang
-  "Laundry" |> Wemo.Switch.by_name |> Wemo.Switch.status
-  => {:ok, 1}
+alias Wemo.Discovery
+alias Wemo.Switch
 
-  "Living Room" |> Wemo.Switch.by_name |> Wemo.Switch.on
-  => {:ok, _}
+Discovery.by_name("Laundry") |> Switch.status
+=> {:ok, 1}
+
+living_room = Discovery.by_name("Living Room")
+Switch.on!(living_room)
+=> {:ok, state}
+
+Wemo.Switch.on?(living_room)
+=> true
+
+
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
