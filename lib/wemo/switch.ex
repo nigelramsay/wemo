@@ -7,6 +7,7 @@ defmodule Wemo.Switch do
     |> Enum.map(&extract_url/1)
     # |> Enum.reject(&is_nil/1)
     |> Enum.map(&interrogate/1)
+    |> Enum.map(&extract_friendly_name/1)
     # |> Enum.find(fn(_switch) -> name == "cheese" end)
 
     # inspect(urls) |> IO.puts
@@ -18,11 +19,12 @@ defmodule Wemo.Switch do
 
   # use httpotion to call the URL
   defp interrogate(url) do
-    inspect(url) |> IO.puts
+    {status: 200, body: body} = response = HTTPotion.get(url)
+    body
   end
 
   # use sweet_xml to parse and extract the response
-  defp extract_state(response) do
-
+  defp extract_friendly_name(xml) do
+    xml |> SweetXml.xpath(~x"//root/device/friendlyName")
   end
 end

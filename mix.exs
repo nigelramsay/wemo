@@ -15,7 +15,7 @@ defmodule Wemo.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :httpotion]]
   end
 
   # Dependencies can be Hex packages:
@@ -28,12 +28,16 @@ defmodule Wemo.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:nerves_ssdp_client, "~> 0.1.0"}]
+    [
+      {:nerves_ssdp_client, "~> 0.1.0"},
+      {:httpotion, "~> 3.0.2"},
+      {:sweet_xml, "~> 0.6.5"}
+    ]
   end
 
   defp description do
     """
-    An Elixir package for discovering and controlling Belkin Wemo devices. 
+    An Elixir package for discovering and controlling Belkin Wemo devices.
     """
   end
 end
