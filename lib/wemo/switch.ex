@@ -1,5 +1,6 @@
 defmodule Wemo.Switch do
 
+  import SweetXml
   alias Nerves.SSDPClient
 
   def find_by_name(name) do
@@ -19,12 +20,12 @@ defmodule Wemo.Switch do
 
   # use httpotion to call the URL
   defp interrogate(url) do
-    {status: 200, body: body} = response = HTTPotion.get(url)
+    %{status_code: 200, body: body} = response = HTTPotion.get(url)
     body
   end
 
   # use sweet_xml to parse and extract the response
   defp extract_friendly_name(xml) do
-    xml |> SweetXml.xpath(~x"//root/device/friendlyName")
+    xpath(xml, ~x"//root/device/friendlyName/text()")
   end
 end
