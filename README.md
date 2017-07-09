@@ -16,22 +16,14 @@ end
 ## Usage examples
 
 ```elixir-lang
-alias Wemo.Discovery
-alias Wemo.Switch
 
-Discovery.by_name("Laundry") |> Switch.status
+Wemo.Switch.find_by_name("Laundry") |> Switch.status
 => {:ok, 1}
 
-living_room = Discovery.by_name("Living Room")
+living_room = Wemo.Switch.find_by_name("Living Room")
 Switch.on!(living_room)
 => {:ok, state}
 
 Wemo.Switch.on?(living_room)
 => true
-
-
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/wemo](https://hexdocs.pm/wemo).

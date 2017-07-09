@@ -5,15 +5,6 @@ defmodule Wemo do
 
   alias Nerves.SSDPClient
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Wemo.hello
-      :world
-
-  """
   def switches do
     devices("controllee")
   end
