@@ -27,9 +27,7 @@ defmodule Wemo.Switch.Control do
   end
 
   def submit_request(xml, switch) do
-    uri = "#{switch.base_url}/#{@path}"
-    IO.puts uri
-    response = HTTPotion.post(uri, [
+    response = HTTPotion.post("#{switch.base_url}/#{@path}", [
       body: xml,
       headers: [
         "SOAPACTION": "\"#{@urn}#SetBinaryState\"",
