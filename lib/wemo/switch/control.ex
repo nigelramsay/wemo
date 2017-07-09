@@ -1,12 +1,16 @@
 defmodule Wemo.Switch.Control do
+  import SweetXml
+
   @path "upnp/control/basicevent1"
   @urn "urn:Belkin:service:basicevent:1"
 
-  def set_state(state, %Wemo.Switch.Metadata{}=switch) do
-    state
+  def set_state(state, %Wemo.Switch.Metadata{}=switch) when state in [0, 1] do
+    result = state
     |> build_state_change_request
     |> submit_request(switch)
     |> parse_state_change_response
+
+    {result, state}
   end
 
   def build_state_change_request(state) do
@@ -15,7 +19,7 @@ defmodule Wemo.Switch.Control do
     <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
     <s:Body>
     <u:SetBinaryState xmlns:u="#{@urn}">
-    <BinaryState>#{if(state, do: "1", else: "0")}</BinaryState>
+    <BinaryState>#{state}</BinaryState>
     </u:SetBinaryState>
     </s:Body>
     </s:Envelope>
@@ -39,6 +43,12 @@ defmodule Wemo.Switch.Control do
   end
 
   def parse_state_change_response(response_body) do
-    response_body
+    state = xpath(response_body, ~x"//s:Envelope/s:Body/u:SetBinaryStateResponse/BinaryState/text()")
+
+    case state do
+      '0' -> :ok
+      '1' -> :ok
+      'Error' -> :no_change
+    end
   end
 end

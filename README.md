@@ -22,7 +22,7 @@ Wemo.Switch.find_by_name("Laundry") |> Switch.status
 
 living_room = Wemo.Switch.find_by_name("Living Room")
 Switch.on!(living_room)
-=> {:ok, state}
+=> {:ok, 1}
 
 Wemo.Switch.on?(living_room)
 => true

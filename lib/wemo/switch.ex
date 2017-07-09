@@ -9,14 +9,14 @@ defmodule Wemo.Switch do
   end
 
   def on(switch) do
-    set_state(true, switch)
+    set_state(1, switch)
   end
 
   def off(switch) do
-    set_state(false, switch)
+    set_state(0, switch)
   end
 
-  def set_state(state, %Wemo.Switch.Metadata{}=switch) do
+  def set_state(state, %Wemo.Switch.Metadata{}=switch) when state in [0, 1] do
     state |> Wemo.Switch.Control.set_state(switch)
   end
 end
