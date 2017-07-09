@@ -7,4 +7,16 @@ defmodule Wemo.Switch do
   def all do
     Wemo.Switch.Discovery.all
   end
+
+  def on(switch) do
+    set_state(true, switch)
+  end
+
+  def off(switch) do
+    set_state(false, switch)
+  end
+
+  def set_state(state, %Wemo.Switch.Metadata{}=switch) do
+    state |> Wemo.Switch.Control.set_state(switch)
+  end
 end
