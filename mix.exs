@@ -31,7 +31,8 @@ defmodule Wemo.Mixfile do
     [
       {:nerves_ssdp_client, "~> 0.1.0"},
       {:httpotion, "~> 3.0.2"},
-      {:sweet_xml, "~> 0.6.5"}
+      {:sweet_xml, "~> 0.6.5"},
+      {:ex_guard, "~> 1.2", only: :dev},
     ]
   end
 

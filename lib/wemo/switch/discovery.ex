@@ -2,20 +2,16 @@ defmodule Wemo.Switch.Discovery do
   import SweetXml
   alias Nerves.SSDPClient
 
+  @client Application.get_env(:wemo, :discovery_client)
+
   def all do
-    SSDPClient.discover(target: "urn:Belkin:device:controllee:1")
-    |> Enum.map(&extract_device_metadata_url/1)
+    @client.discover(target: "urn:Belkin:device:controllee:1")
     |> Enum.map(&query_device/1)
     |> Enum.map(&extract_metadata/1)
   end
 
-  def extract_device_metadata_url({_, %{location: location}}) do
-    location
-  end
-
   def query_device(url) do
-    %{status_code: 200, body: body} = HTTPotion.get(url)
-    {url, body}
+    @client.query_metadata(url)
   end
 
   def extract_metadata({url, xml}) do

@@ -13,8 +13,8 @@
     <modelName>Socket</modelName>
     <modelNumber>1.0</modelNumber>
     <modelURL>http://www.belkin.com/plugin/</modelURL>
-    <serialNumber>221332K1100068</serialNumber>
-    <UDN>uuid:Socket-1_0-221332K1100068</UDN>
+    <serialNumber>123553K1100033</serialNumber>
+    <UDN>uuid:Socket-1_0-123553K1100033</UDN>
     <UPC>123456789</UPC>
     <iconList>
       <icon>
@@ -61,7 +61,6 @@
         <eventSubURL>/upnp/event/rules1</eventSubURL>
         <SCPDURL>/rulesservice.xml</SCPDURL>
       </service>
-
       <service>
         <serviceType>urn:Belkin:service:metainfo:1</serviceType>
         <serviceId>urn:Belkin:serviceId:metainfo1</serviceId>
@@ -69,7 +68,6 @@
         <eventSubURL>/upnp/event/metainfo1</eventSubURL>
         <SCPDURL>/metainfoservice.xml</SCPDURL>
       </service>
-
       <service>
         <serviceType>urn:Belkin:service:remoteaccess:1</serviceType>
         <serviceId>urn:Belkin:serviceId:remoteaccess1</serviceId>
@@ -77,8 +75,6 @@
         <eventSubURL>/upnp/event/remoteaccess1</eventSubURL>
         <SCPDURL>/remoteaccess.xml</SCPDURL>
       </service>
-
-
     </serviceList>
     <presentationURL>/pluginpres.html</presentationURL>
   </device>
