@@ -2,6 +2,8 @@
 
 Elixir package for discovering and controlling Belkin Wemo devices.
 
+[![Build Status](https://travis-ci.org/nigelramsay/wemo.svg?branch=master)](https://travis-ci.org/nigelramsay/wemo)
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
