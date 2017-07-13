@@ -1,4 +1,4 @@
-defmodule Wemo.Switch.Discovery.MockClient do
+defmodule Wemo.Switch.Client.MockDiscoveryClient do
   @root_dir       File.cwd!
   @xml_dir        Path.join(~w(#{@root_dir} test fixtures xml))
 

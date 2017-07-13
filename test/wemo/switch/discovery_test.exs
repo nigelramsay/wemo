@@ -1,8 +1,6 @@
 defmodule Wemo.Switch.DiscoveryTest do
   use ExUnit.Case
 
-  alias Wemo.Switch.Discovery
-
   describe "Wemo.all/0" do
     test "returns expected metadata" do
       results = Wemo.Switch.Discovery.all()

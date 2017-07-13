@@ -1,6 +1,5 @@
 defmodule Wemo.Switch.Discovery do
   import SweetXml
-  alias Nerves.SSDPClient
 
   @client Application.get_env(:wemo, :discovery_client)
 

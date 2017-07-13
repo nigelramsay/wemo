@@ -1,24 +1,23 @@
 defmodule Wemo.Switch.Control do
   import SweetXml
 
-  @path "upnp/control/basicevent1"
-  @urn "urn:Belkin:service:basicevent:1"
+  @client Application.get_env(:wemo, :soap_client)
 
   def set_state(state, %Wemo.Switch.Metadata{}=switch) when state in [0, 1] do
     result = state
-    |> build_state_change_request
-    |> submit_request(switch)
+    |> build_state_change_xml
+    |> post_state_change_request(switch)
     |> parse_state_change_response
 
     {result, state}
   end
 
-  def build_state_change_request(state) do
+  def build_state_change_xml(state) do
     """
     <?xml version="1.0" encoding="utf-8"?>
     <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
     <s:Body>
-    <u:SetBinaryState xmlns:u="#{@urn}">
+    <u:SetBinaryState xmlns:u="urn:Belkin:service:basicevent:1">
     <BinaryState>#{state}</BinaryState>
     </u:SetBinaryState>
     </s:Body>
@@ -26,18 +25,12 @@ defmodule Wemo.Switch.Control do
     """
   end
 
-  def submit_request(xml, switch) do
-    response = HTTPotion.post("#{switch.base_url}/#{@path}", [
-      body: xml,
-      headers: [
-        "SOAPACTION": "\"#{@urn}#SetBinaryState\"",
-        "Content-Type": "text/xml; charset=\"utf-8\""
-      ]
-    ])
-
-    %{status_code: 200, body: body} = response
-
-    body
+  def post_state_change_request(xml, switch) do
+    @client.post_request(
+      xml,
+      "#{switch.base_url}/upnp/control/basicevent1",
+      "urn:Belkin:service:basicevent:1#SetBinaryState)"
+    )
   end
 
   def parse_state_change_response(response_body) do
