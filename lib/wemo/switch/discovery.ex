@@ -1,19 +1,19 @@
 defmodule Wemo.Switch.Discovery do
   import SweetXml
 
-  @client Application.get_env(:wemo, :discovery_client)
+  @discovery_client Application.get_env(:wemo, :discovery_client)
 
   def all do
-    @client.discover(target: "urn:Belkin:device:controllee:1")
+    @discovery_client.discover(target: "urn:Belkin:device:controllee:1")
     |> Enum.map(&query_device/1)
     |> Enum.map(&extract_metadata/1)
   end
 
-  def query_device(url) do
-    @client.query_metadata(url)
+  defp query_device(url) do
+    @discovery_client.query_metadata(url)
   end
 
-  def extract_metadata({url, xml}) do
+  defp extract_metadata({url, xml}) do
     %Wemo.Switch.Metadata{
       base_url: extract_base_url(url),
       device_type: xpath(xml, ~x"//root/device/deviceType/text()"),
@@ -30,7 +30,7 @@ defmodule Wemo.Switch.Discovery do
     }
   end
 
-  def extract_base_url(full_url) do
+  defp extract_base_url(full_url) do
     uri = URI.parse(full_url)
 
     "#{uri.scheme}://#{uri.host}:#{uri.port}"
