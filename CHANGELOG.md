@@ -1,4 +1,4 @@
-# AddressFinder 0.1.2 (July 22, 2017)
+# AddressFinder 0.1.3 (July 22, 2017)
 
 * Initial public release
 

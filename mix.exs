@@ -3,7 +3,7 @@ defmodule Wemo.Mixfile do
 
   def project do
     [app: :wemo,
-     version: "0.1.2",
+     version: "0.1.3",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -37,6 +37,7 @@ defmodule Wemo.Mixfile do
       {:httpotion, "~> 3.0.2"},
       {:sweet_xml, "~> 0.6.5"},
       {:ex_guard, "~> 1.2", only: :dev},
+      {:ex_doc, ">= 0.0.0", only: :dev},
     ]
   end
 

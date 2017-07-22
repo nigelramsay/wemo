@@ -1,7 +1,7 @@
 defmodule Wemo.Switch.QueryStatus do
   import SweetXml
 
-  @soap_client Application.get_env(:wemo, :soap_client)
+  @soap_client Application.get_env(:wemo, :soap_client,Wemo.Switch.Client.SoapClient)
 
   def status(switch) do
     state = build_status_query_xml()
