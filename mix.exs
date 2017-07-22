@@ -3,7 +3,7 @@ defmodule Wemo.Mixfile do
 
   def project do
     [app: :wemo,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -34,11 +34,5 @@ defmodule Wemo.Mixfile do
       {:sweet_xml, "~> 0.6.5"},
       {:ex_guard, "~> 1.2", only: :dev},
     ]
-  end
-
-  defp description do
-    """
-    An Elixir package for discovering and controlling Belkin Wemo devices.
-    """
   end
 end

@@ -1,7 +1,7 @@
 defmodule Wemo.SwitchTest do
-  use ExUnit.Case
-
+  use ExUnit.Case, async: true
   alias Wemo.Switch
+  doctest Wemo.Switch
 
   describe "Switch.find_by_name/1" do
     test "for an unknown switch" do

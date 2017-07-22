@@ -1,4 +1,4 @@
-defmodule Wemo.Switch.Control do
+defmodule Wemo.Switch.ChangeStatus do
   import SweetXml
 
   @soap_client Application.get_env(:wemo, :soap_client)

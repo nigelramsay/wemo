@@ -1,5 +1,5 @@
 defmodule Wemo.Switch.DiscoveryTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   describe "Wemo.all/0" do
     test "returns expected metadata" do
