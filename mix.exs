@@ -7,6 +7,10 @@ defmodule Wemo.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: description(),
+     package: package(),
+     name: "Wemo",
+     source_url: "https://github.com/nigelramsay/wemo",
      deps: deps()]
   end
 
@@ -33,6 +37,21 @@ defmodule Wemo.Mixfile do
       {:httpotion, "~> 3.0.2"},
       {:sweet_xml, "~> 0.6.5"},
       {:ex_guard, "~> 1.2", only: :dev},
+    ]
+  end
+
+  defp description do
+    """
+    An Elixir package for discovering and controlling Belkin Wemo devices.
+    """
+  end
+
+  defp package do
+    [
+      name: :wemo,
+      maintainers: ["Nigel Ramsay"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/nigelramsay/wemo"}
     ]
   end
 end
