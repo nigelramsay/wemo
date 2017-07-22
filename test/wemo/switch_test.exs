@@ -11,7 +11,7 @@ defmodule Wemo.SwitchTest do
     test "for a known switch" do
       result = Switch.find_by_name("WeMo Switch")
 
-      assert result.friendly_name == 'WeMo Switch'
+      assert result.friendly_name == "WeMo Switch"
     end
   end
 
@@ -22,7 +22,7 @@ defmodule Wemo.SwitchTest do
 
     [first|_] = results
 
-    assert first.friendly_name == 'WeMo Switch'
+    assert first.friendly_name == "WeMo Switch"
   end
 
   describe "Switch.on/1" do
