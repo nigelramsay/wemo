@@ -37,6 +37,7 @@ defmodule Wemo.Mixfile do
       {:httpotion, "~> 3.0.2"},
       {:sweet_xml, "~> 0.6.5"},
       {:ex_guard, "~> 1.2", only: :dev},
+      {:ex_doc, ">= 0.0.0", only: :dev},
     ]
   end
 

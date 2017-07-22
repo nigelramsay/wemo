@@ -1,7 +1,7 @@
 defmodule Wemo.Switch.ChangeStatus do
   import SweetXml
 
-  @soap_client Application.get_env(:wemo, :soap_client)
+  @soap_client Application.get_env(:wemo, :soap_client, Wemo.Switch.Client.SoapClient)
 
   def set_state(state, %Wemo.Switch.Metadata{}=switch) when state in [0, 1] do
     result = state

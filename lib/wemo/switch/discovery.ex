@@ -1,7 +1,7 @@
 defmodule Wemo.Switch.Discovery do
   import SweetXml
 
-  @discovery_client Application.get_env(:wemo, :discovery_client)
+  @discovery_client Application.get_env(:wemo, :discovery_client, Wemo.Switch.Client.DiscoveryClient)
 
   def all do
     @discovery_client.discover(target: "urn:Belkin:device:controllee:1")
