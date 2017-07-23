@@ -3,7 +3,13 @@ defmodule Wemo.Switch.ChangeStatus do
 
   @soap_client Application.get_env(:wemo, :soap_client, Wemo.Switch.Client.SoapClient)
 
-  def set_state(state, %Wemo.Switch.Metadata{}=switch) when state in [0, 1] do
+  @typedoc """
+    Switch change status atom followed by the newly applied state.
+  """
+  @type result :: {:ok|:no_change, 0|1}
+
+  @spec set_state(0|1, Wemo.Switch.Metadata) :: result
+  def set_state(state, switch) when state in [0, 1] do
     result = state
     |> build_state_change_xml
     |> post_state_change_request(switch)
