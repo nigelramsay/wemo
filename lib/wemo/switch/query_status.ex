@@ -3,6 +3,7 @@ defmodule Wemo.Switch.QueryStatus do
 
   @soap_client Application.get_env(:wemo, :soap_client,Wemo.Switch.Client.SoapClient)
 
+  @spec status(Wemo.Switch.Metadata) :: 0|1
   def status(switch) do
     state = build_status_query_xml()
     |> post_status_query_request(switch)
