@@ -5,6 +5,7 @@ dist: trusty
 elixir:
   - 1.4.2
   - 1.4.5
+  - 1.5.0
 otp_release:
   - 19.3
   - 20.0
