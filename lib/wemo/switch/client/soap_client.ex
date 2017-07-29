@@ -1,4 +1,6 @@
 defmodule Wemo.Switch.Client.SoapClient do
+  @moduledoc false
+
   def post_request(xml, url, soap_action) do
     response = HTTPotion.post(url, [
       body: xml,

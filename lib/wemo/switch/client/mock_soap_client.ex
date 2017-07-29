@@ -1,4 +1,6 @@
 defmodule Wemo.Switch.Client.MockSoapClient do
+  @moduledoc false
+
   @root_dir       File.cwd!
   @xml_dir        Path.join(~w(#{@root_dir} test fixtures xml))
 

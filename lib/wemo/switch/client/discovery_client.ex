@@ -1,4 +1,6 @@
 defmodule Wemo.Switch.Client.DiscoveryClient do
+  @moduledoc false
+  
   alias Nerves.SSDPClient
 
   def discover(target: target) do
