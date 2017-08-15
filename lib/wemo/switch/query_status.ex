@@ -1,7 +1,7 @@
 defmodule Wemo.Switch.QueryStatus do
   import SweetXml
 
-  @soap_client Application.get_env(:wemo, :soap_client,Wemo.Switch.Client.SoapClient)
+  @soap_client Application.get_env(:wemo, :soap_client, Wemo.Switch.Client.SoapClient)
 
   @spec status(Wemo.Switch.Metadata) :: 0|1
   def status(switch) do
