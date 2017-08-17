@@ -10,4 +10,8 @@ defmodule Wemo.Switch.NetworkManager do
   def all do
     GenServer.call(Wemo.Switch.NetworkManager.Server, {:all})
   end
+
+  def find_by_name(name) do
+    GenServer.call(Wemo.Switch.NetworkManager.Server, {:find_by_name, name})    
+  end
 end

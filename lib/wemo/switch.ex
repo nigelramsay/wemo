@@ -14,8 +14,7 @@ defmodule Wemo.Switch do
   """
   @spec find_by_name(name :: String.t) :: Wemo.Switch.Metadata | nil
   def find_by_name(name) do
-    Discovery.all()
-    |> Enum.find(fn(switch) -> name == to_string(switch.friendly_name) end)
+    Wemo.Switch.NetworkManager.find_by_name(name)
   end
 
   @doc """
@@ -36,7 +35,7 @@ defmodule Wemo.Switch do
   """
   @spec on(Wemo.Switch.Metadata) :: Wemo.Switch.ChangeStatus.result
   def on(switch) do
-    set_state(1, switch)
+    Wemo.Switch.SwitchManager.on(switch)
   end
 
   @doc """
@@ -49,7 +48,7 @@ defmodule Wemo.Switch do
   """
   @spec off(Wemo.Switch.Metadata) :: Wemo.Switch.ChangeStatus.result
   def off(switch) do
-    set_state(0, switch)
+    Wemo.Switch.SwitchManager.off(switch)
   end
 
   @doc """
@@ -60,7 +59,7 @@ defmodule Wemo.Switch do
   """
   @spec status(Wemo.Switch.Metadata) :: 0|1
   def status(switch) do
-    QueryStatus.status(switch)
+    Wemo.Switch.SwitchManager.status(switch)
   end
 
   defp set_state(state, %Metadata{}=switch) when state in [0, 1] do

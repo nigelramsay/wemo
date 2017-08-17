@@ -17,6 +17,11 @@ defmodule Wemo.Switch.NetworkManager.Server do
     {:reply, result, state}
   end
 
+  def handle_call({:find_by_name, name}, _from, state) do
+    result = Impl.find_by_name(name, state)
+    {:reply, result, state}
+  end
+
   def handle_cast({:refresh}, state) do
     {:noreply, Impl.refresh(state)}
   end

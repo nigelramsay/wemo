@@ -25,7 +25,13 @@ defmodule Wemo.Switch.SwitchManager do
   end
 
   def base_url(switch) do
-    GenServer.call(switch, {:base_url})
+    %{base_url: url} = GenServer.call(switch, {:metadata})
+    url
+  end
+
+  def friendly_name(switch) do
+    %{friendly_name: friendly_name} = GenServer.call(switch, {:metadata})
+    friendly_name
   end
 
   ####################
@@ -56,8 +62,8 @@ defmodule Wemo.Switch.SwitchManager do
     {:reply, {:ok, state.status}, state}
   end
 
-  def handle_call({:base_url}, _from, state) do
-    {:reply, state.base_url, state}
+  def handle_call({:metadata}, _from, state) do
+    {:reply, state.metadata, state}
   end
 
   def handle_cast({:initialise}, state) do

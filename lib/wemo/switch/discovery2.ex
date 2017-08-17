@@ -16,7 +16,7 @@ defmodule Wemo.Switch.Discovery2 do
 
   defp extract_metadata({url, xml}) do
     %Wemo.Switch.Metadata{
-      # base_url: extract_base_url(url),
+      base_url: extract_base_url(url),
       device_type: xpath(xml, ~x"//root/device/deviceType/text()"s),
       friendly_name: xpath(xml, ~x"//root/device/friendlyName/text()"s),
       manufacturer: xpath(xml, ~x"//root/device/manufacturer/text()"s),

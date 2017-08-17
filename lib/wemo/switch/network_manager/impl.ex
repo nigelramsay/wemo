@@ -8,11 +8,15 @@ defmodule Wemo.Switch.NetworkManager.Impl do
   end
 
   def refresh(state) do
-    switches = Wemo.Switch.Discovery2.all
+    switches_urls = Wemo.Switch.Discovery2.all
 
-    Enum.each(switches, &manage_switch/1)
+    managed_switches = Enum.map(switches_urls, &manage_switch/1)
 
-    Map.put(state, :switches, switches)
+    Map.put(state, :switches, managed_switches)
+  end
+
+  def find_by_name(name, state) do
+    Enum.find(state[:switches], fn(sw) -> name == Wemo.Switch.SwitchManager.friendly_name(sw) end)
   end
 
   defp manage_switch(base_url) do
