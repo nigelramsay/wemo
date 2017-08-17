@@ -1,6 +1,6 @@
 defmodule Wemo.Switch.NetworkManager do
   def new do
-    GenServer.start_link(Wemo.Switch.NetworkManager.Server, %{})
+    GenServer.start_link(Wemo.Switch.NetworkManager.Server, :ok)
   end
 
   def refresh do

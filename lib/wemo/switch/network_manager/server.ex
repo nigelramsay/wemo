@@ -7,7 +7,7 @@ defmodule Wemo.Switch.NetworkManager.Server do
   end
 
   def init(:ok) do
-    Wemo.Switch.NetworkManager.refresh
+    GenServer.cast(Wemo.Switch.NetworkManager.Server, {:refresh})
 
     {:ok, %{}}
   end
