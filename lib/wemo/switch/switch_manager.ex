@@ -1,12 +1,13 @@
 defmodule Wemo.Switch.SwitchManager do
   use GenServer
+  require Logger
 
   ##############
   # Client API #
   ##############
 
   def start_link(discovery_url) do
-    {:ok, switch} = GenServer.start_link(__MODULE__, %{discovery_url: discovery_url})
+    {:ok, switch} = GenServer.start_link(__MODULE__, %Wemo.Switch.SwitchState{discovery_url: discovery_url})
     GenServer.cast(switch, {:initialise})
     {:ok, switch}
   end
@@ -28,11 +29,12 @@ defmodule Wemo.Switch.SwitchManager do
   ####################
 
   def init(state) do
+    Logger.info "Starting SwitchManager for #{state.discovery_url}"
     {:ok, state}
   end
 
   def handle_call({:change_status, new_status}, _from, state) do
-    {:ok, updated_status} = Wemo.Switch.ChangeStatus2.set_state(new_status, state[:base_url])
+    {:ok, updated_status} = Wemo.Switch.ChangeStatus2.set_state(new_status, state.base_url)
 
     state = Map.put(state, :status, updated_status)
 
@@ -40,18 +42,18 @@ defmodule Wemo.Switch.SwitchManager do
   end
 
   def handle_call({:status, true}, _from, state) do
-    result = Wemo.Switch.QueryStatus2.status(state[:base_url])
+    result = Wemo.Switch.QueryStatus2.status(state.base_url)
     state = Map.put(state, :status, result)
 
     {:reply, {:ok, result}, state}
   end
 
   def handle_call({:status, false}, _from, state) do
-    {:reply, {:ok, state[:status]}, state}
+    {:reply, {:ok, state.status}, state}
   end
 
   def handle_cast({:initialise}, state) do
-    discovery_url = state[:discovery_url]
+    discovery_url = state.discovery_url
     base_url = extract_base_url(discovery_url)
 
     metadata = Wemo.Switch.Discovery2.query_device(discovery_url)

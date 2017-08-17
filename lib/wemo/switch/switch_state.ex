@@ -1,4 +1,4 @@
-defmodule Wemo.Switch.SwitchStatus do
+defmodule Wemo.Switch.SwitchState do
   @moduledoc """
     Status of a Wemo Switch
   """
@@ -9,5 +9,5 @@ defmodule Wemo.Switch.SwitchStatus do
     * `:enabled_status` - 0 or 1
     * `:subscription_id` - as returned from the switch
   """
-  defstruct [:metadata, :state, :subscription_id]
+  defstruct [:metadata, :status, :discovery_url, :base_url]
 end

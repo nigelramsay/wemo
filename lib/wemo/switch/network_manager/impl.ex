@@ -9,7 +9,8 @@ defmodule Wemo.Switch.NetworkManager.Impl do
 
   def refresh(state) do
     switches = Wemo.Switch.Discovery2.all
-    |> Enum.map(&manage_switch/1)
+
+    Enum.each(switches, &manage_switch/1)
 
     Map.put(state, :switches, switches)
   end
