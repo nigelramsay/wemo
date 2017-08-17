@@ -3,12 +3,12 @@ defmodule Wemo.Switch.NetworkManager.Server do
   alias Wemo.Switch.NetworkManager.Impl
 
   def start_link(opts) do
-    GenServer.start_link(__MODULE__, :ok, opts)
+    {:ok, pid} = GenServer.start_link(__MODULE__, :ok, opts)
+    GenServer.cast(pid, {:refresh})
+    {:ok, pid}
   end
 
   def init(:ok) do
-    GenServer.cast(Wemo.Switch.NetworkManager.Server, {:refresh})
-
     {:ok, %{}}
   end
 

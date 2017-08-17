@@ -32,7 +32,9 @@ defmodule Wemo.Switch.SwitchManager do
   end
 
   def handle_call({:change_status, new_status}, _from, state) do
-    Wemo.Switch.ChangeStatus2.set_state(new_status, state[:base_url])
+    {:ok, updated_status} = Wemo.Switch.ChangeStatus2.set_state(new_status, state[:base_url])
+
+    state = Map.put(state, :status, updated_status)
 
     {:reply, {:ok, new_status}, state}
   end
