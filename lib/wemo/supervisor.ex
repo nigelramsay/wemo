@@ -8,7 +8,14 @@ defmodule Wemo.Supervisor do
   def init(:ok) do
     children = [
       {Wemo.Switch.NetworkManager.Server, name: Wemo.Switch.NetworkManager.Server},
-      {Plug.Adapters.Cowboy, scheme: :http, plug: Wemo.Switch.HTTP.EventListener, options: [port: 4001]}
+      {Wemo.Switch.EventManager, name: Wemo.Switch.EventManager},
+      {Plug.Adapters.Cowboy, scheme: :http,
+                             plug: Wemo.Switch.HTTP.EventListener,
+                             options: [
+                               port: 4001,
+                               acceptors: 5
+                             ]
+      }
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

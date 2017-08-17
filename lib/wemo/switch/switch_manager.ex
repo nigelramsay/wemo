@@ -24,6 +24,10 @@ defmodule Wemo.Switch.SwitchManager do
     GenServer.call(switch, {:status, force})
   end
 
+  def base_url(switch) do
+    GenServer.call(switch, {:base_url})
+  end
+
   ####################
   # Server Callbacks #
   ####################
@@ -52,6 +56,10 @@ defmodule Wemo.Switch.SwitchManager do
     {:reply, {:ok, state.status}, state}
   end
 
+  def handle_call({:base_url}, _from, state) do
+    {:reply, state.base_url, state}
+  end
+
   def handle_cast({:initialise}, state) do
     discovery_url = state.discovery_url
     base_url = extract_base_url(discovery_url)
@@ -63,6 +71,8 @@ defmodule Wemo.Switch.SwitchManager do
     |> Map.put(:metadata, metadata)
     |> Map.put(:base_url, base_url)
     |> Map.put(:status, status)
+
+    Wemo.Switch.EventManager.monitor_switch(self)
 
     {:noreply, state}
   end
