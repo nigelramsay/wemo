@@ -4,17 +4,15 @@ defmodule Wemo.Switch do
     functions in this module.
   """
 
-  alias Wemo.Switch.Discovery
-  alias Wemo.Switch.QueryStatus
-  alias Wemo.Switch.ChangeStatus
-  alias Wemo.Switch.Metadata
+  alias Wemo.Switch.NetworkManager
+  alias Wemo.Switch.SwitchManager
 
   @doc """
     Search for a Wemo Switch with the assigned name.
   """
   @spec find_by_name(name :: String.t) :: Wemo.Switch.Metadata | nil
   def find_by_name(name) do
-    Wemo.Switch.NetworkManager.find_by_name(name)
+    NetworkManager.find_by_name(name)
   end
 
   @doc """
@@ -22,7 +20,7 @@ defmodule Wemo.Switch do
   """
   @spec all() :: [Wemo.Switch.Metadata]
   def all do
-    Discovery.all
+    NetworkManager.all
   end
 
   @doc """
@@ -33,9 +31,9 @@ defmodule Wemo.Switch do
 
     If the switch was already on, the returned value is `{:no_change, 1}`
   """
-  @spec on(Wemo.Switch.Metadata) :: Wemo.Switch.ChangeStatus.result
+  @spec on(pid) :: Wemo.Switch.ChangeStatus.result
   def on(switch) do
-    Wemo.Switch.SwitchManager.on(switch)
+    SwitchManager.on(switch)
   end
 
   @doc """
@@ -48,7 +46,7 @@ defmodule Wemo.Switch do
   """
   @spec off(Wemo.Switch.Metadata) :: Wemo.Switch.ChangeStatus.result
   def off(switch) do
-    Wemo.Switch.SwitchManager.off(switch)
+    SwitchManager.off(switch)
   end
 
   @doc """
@@ -59,10 +57,6 @@ defmodule Wemo.Switch do
   """
   @spec status(Wemo.Switch.Metadata) :: 0|1
   def status(switch) do
-    Wemo.Switch.SwitchManager.status(switch)
-  end
-
-  defp set_state(state, %Metadata{}=switch) when state in [0, 1] do
-    state |> ChangeStatus.set_state(switch)
+    SwitchManager.status(switch)
   end
 end

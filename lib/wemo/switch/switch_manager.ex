@@ -43,12 +43,22 @@ defmodule Wemo.Switch.SwitchManager do
     {:ok, state}
   end
 
+  def handle_call({:change_status, new_status}, _from, %{status: new_status}=state) do
+    Logger.info "Ignoring change message when matching existing status: #{new_status}"
+    {:reply, :ok, new_status, state}
+  end
+
   def handle_call({:change_status, new_status}, _from, state) do
-    {:ok, updated_status} = Wemo.Switch.ChangeStatus2.set_state(new_status, state.base_url)
-
-    state = Map.put(state, :status, updated_status)
-
-    {:reply, {:ok, new_status}, state}
+    case Wemo.Switch.ChangeStatus2.set_state(new_status, state.base_url) do
+      {:ok, updated_status} ->
+        state = Map.put(state, :status, updated_status)
+        {:reply, {:ok, updated_status}, state}
+      {:no_change, updated_status} ->
+        state = Map.put(state, :status, updated_status)
+        {:reply, {:ok, updated_status}, state}
+      _ ->
+        {:reply, {:error}, state}
+    end
   end
 
   def handle_call({:status, true}, _from, state) do
