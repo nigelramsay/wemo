@@ -1,0 +1,7 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Body>
+    <u:GetPowerResponse xmlns:u="urn:Belkin:service:insight:1">
+      <InstantPower>92170</InstantPower>
+    </u:GetPowerResponse>
+  </s:Body>
+</s:Envelope>

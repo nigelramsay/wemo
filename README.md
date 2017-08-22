@@ -47,3 +47,10 @@ Wemo.Switch.off?(living_room)
 Wemo.Switch.status(living_room)
 => 1
 ```
+
+Checking the current draw of a switch (for switches like WeMo Insight that support this functionality):
+
+```elixir-lang
+Wemo.Switch.current_draw(living_room)
+=> 92170
+```

@@ -33,4 +33,18 @@ defmodule Wemo.Switch.Client.MockSoapClient do
 
     body
   end
+
+  def post_request(_xml, url, "urn:Belkin:service:insight:1#GetPower)") do
+    filename = case url do
+      "http://192.168.1.100" <> _remaining ->
+        "current_draw_check_response.xml"
+      _ ->
+        "state_change_error_response.xml"
+    end
+
+    {:ok, body} = Path.join(@xml_dir, filename)
+    |> File.read
+
+    body
+  end
 end
