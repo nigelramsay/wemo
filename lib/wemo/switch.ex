@@ -7,6 +7,7 @@ defmodule Wemo.Switch do
   alias Wemo.Switch.Discovery
   alias Wemo.Switch.QueryStatus
   alias Wemo.Switch.ChangeStatus
+  alias Wemo.Switch.QueryCurrentDraw
   alias Wemo.Switch.Metadata
 
   @doc """
@@ -61,6 +62,17 @@ defmodule Wemo.Switch do
   @spec status(Wemo.Switch.Metadata) :: 0|1
   def status(switch) do
     QueryStatus.status(switch)
+  end
+
+  @doc """
+    Checks and returns the current draw of the supplied switch in milliwatts. For example:
+
+      iex> Wemo.Switch.find_by_name("WeMo Switch") |> Wemo.Switch.current_draw
+      92170
+  """
+  @spec current_draw(Wemo.Switch.Metadata) :: integer
+  def current_draw(switch) do
+    QueryCurrentDraw.current_draw(switch)
   end
 
   defp set_state(state, %Metadata{}=switch) when state in [0, 1] do

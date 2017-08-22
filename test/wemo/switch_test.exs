@@ -64,4 +64,15 @@ defmodule Wemo.SwitchTest do
       assert Switch.off(switch) == {:no_change, 0}
     end
   end
+
+  describe "Switch.current_draw/1" do
+    test "returns the current draw" do
+      switch = %Wemo.Switch.Metadata{
+        friendly_name: "WeMo Switch",
+        base_url: "http://192.168.1.100"
+      }
+
+      assert Switch.current_draw(switch) == 92170
+    end
+  end
 end
